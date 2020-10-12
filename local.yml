@@ -1,0 +1,5 @@
+- host: localhost
+  become: true
+  task:
+  - name: Install htop
+     apt: name=htop
