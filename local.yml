@@ -2,4 +2,4 @@
   become: true
   task:
   - name: Install htop
-     apt: name=htop
+    apt: name=htop
