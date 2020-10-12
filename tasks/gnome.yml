@@ -1,0 +1,27 @@
+# the 'uspon' is the username on my machine, need to replace with the username on your machine.
+
+# you can take a snapshot of all your current dconf settings by running the following command on the machine you're managing:
+# dconf dump / > before.txt
+
+- name: Install python-psutil package
+  apt: name=python-psutil
+
+- name: Copy wallpaper file
+  copy: src=files/wallpaper.jpg dest=/home/uspon/.wallpaper.jpg owner=uspon group=uspon mode=600
+
+- name: Set GNOME wallpaper
+  dconf: key="/org/gnome/desktop/background/picture-uri" value="'file:///home/uspon/.wallpaper.jpg'"
+
+- name: Copy lockscreenfile
+  copy: src=files/lockscreen.jpg dest=/home/uspon/.lockscreen.jpg owner=uspon group=uspon mode=600
+
+- name: Set lock screen background
+  become_user: uspon
+  dconf: key="/org/gnome/desktop/screensaver/picture-uri" value="'file:///home/uspon/.lockscreen.jpg'"
+
+- name: Install arc theme
+  apt: name=arc-theme
+
+- name: Set GTK theme
+  become_user: uspon
+  dconf: key="/org/gnome/desktop/interface/gtk-theme" value="'Arc'"
